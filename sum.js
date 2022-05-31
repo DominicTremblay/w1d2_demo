@@ -14,6 +14,25 @@ if (args.length < 2) {
 
 console.log('args:', args);
 
+const allNums = function(numbers) {
+
+  for (let num of numbers) {
+    if (isNaN(Number(num))) {
+      console.log(`Error: please enter only numbers`);
+      // break or return
+      // return => returning a value from a function => exit the function
+      process.exit();
+    }
+
+  }
+
+  return numbers;
+
+}
+
+
+
+
 //  goes through each
 
 // c-style
@@ -21,29 +40,27 @@ console.log('args:', args);
 // for in
 // for each
 
-// accumulator
-let total = 0;
+// single reponsibility principle
+// a function should do a single thing
 
-for (let nb of args) {
-  // sum them up
-  //  edge case: If any argument is not a whole number, skip it
-  //  edge case: If any argument is not a number, output an error message.
-  
-  if (isNaN(Number(nb))) {
-    console.log(`Error: please enter only numbers`);
-    // break or return
-    // return => returning a value from a function => exit the function
-    process.exit()
+const sum = function (numbers) {
+  // accumulator
+  let total = 0;
+
+  for (let nb of numbers) {
+    // sum them up
+    //  edge case: If any argument is not a whole number, skip it
+    //  edge case: If any argument is not a number, output an error message.
+
+    if (Number.isInteger(Number(nb))) {
+      total += Number(nb);
+    }
+
+    console.log('nb:', nb, 'total:', total);
   }
-  
-  if (Number.isInteger(Number(nb))) {
-    total += Number(nb);
-  }
-
-
-  console.log('nb:', nb, 'total:', total);
-}
-
+  return total;
+};
 
 // print the sum
-console.log('Total:', total);
+const result = sum(allNums(args));
+console.log('Total:', result);
