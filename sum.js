@@ -16,8 +16,13 @@ console.log("args:", args);
 // for in
 // for each
 
-for (let nb of args) {
+// accumulator
+let total = 0;
 
+for (let nb of args) {
+  // sum them up
+  total += Number(nb);
+  console.log("nb:", nb, "total:", total);
 }
 
 
@@ -27,6 +32,6 @@ for (let nb of args) {
 //  edge case: If any argument is not a number, output an error message.
 
 
-// sum them up
 
 // print the sum
+console.log("Total:", total)
