@@ -8,37 +8,70 @@ const args = process.argv.slice(2);
 if (args.length < 2) {
   console.log(`Error: please enter at least 2 args`);
   process.exit();
-} 
+}
 
 console.log('args:', args);
 
-// declare an accumulator
-let total = 0;
+// Single Responsibility principle
+// => each function should do a single thing
+//['1','2','3'] => [1, 2, 3]
+//['1','2','hello'] => [1,2,NaN]
 
-// goes through each args
-// for loop => for of, forEach, for in, for i=0...
-// for of => more readable
+const convertToNums = function (numbers) {
+  const outputArr = [];
 
-for (let nb of args) {
-  // Ensure the arguments are all numbers
-
-  // Edge case: If any argument is not a number, output an error message.
-
-  if (isNaN(Number(nb))) {
-    console.log(`Error: please input only numbers`);
-    process.exit();
+  for (let num of numbers) {
+    outputArr.push(Number(num));
   }
 
-  // Edge case: If any argument is not a whole number, skip it.
-  if (Number.isInteger(Number(nb))) {
-    total += Number(nb);
+  return outputArr;
+};
+
+// [1, 2, 3] => [1, 2, 3]
+// [1,2,NaN] => process.exit()
+const allNums = function (numbers) {
+  for (let num of numbers) {
+    // Edge case: If any argument is not a number, output an error message.
+
+    if (isNaN(num)) {
+      console.log(`Error: please input only numbers`);
+      process.exit();
+    }
   }
 
-  console.log('nb:', nb, 'total:', total);
-}
+  return numbers;
+};
 
-// add each arg to the accumulator
+const sum = function (numbers) {
+  // declare an accumulator
+  let total = 0;
 
-// print out the sum
+  // goes through each args
+  // for loop => for of, forEach, for in, for i=0...
+  // for of => more readable
 
-console.log('Total:', total);
+  for (let nb of numbers) {
+    // Ensure the arguments are all numbers
+
+    // Edge case:If any argument is not a whole number, skip it.
+    if (Number.isInteger(nb)) {
+      total += nb;
+    }
+
+    console.log('nb:', nb, 'total:', total);
+  }
+
+  // print out the sum
+
+  return total;
+};
+
+// const conversion = convertToNums(args)
+// const checkNumbers = allNums(conversion)
+// const result = sum(checkNumbers)
+
+const result = sum(allNums(convertToNums(args)));
+console.log("Total:", result);
+
+// O(N) => linear complexity
+
